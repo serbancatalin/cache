@@ -11,6 +11,18 @@ abstract class CacheTest extends \Doctrine\Tests\DoctrineTestCase
     /**
      * @dataProvider provideDataToCache
      */
+    public function testLifeTimeNull($value) : void
+    {
+        $cache = $this->_getCacheDriver();
+
+        // Test saving a value, checking if it exists, and fetching it back
+        self::assertTrue($cache->save('key', $value, null));
+        self::assertTrue($cache->contains('key'));
+    }
+
+    /**
+     * @dataProvider provideDataToCache
+     */
     public function testSetContainsFetchDelete($value) : void
     {
         $cache = $this->_getCacheDriver();
